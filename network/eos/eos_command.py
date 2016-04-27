@@ -142,7 +142,7 @@ def main():
         queue = set()
         for entry in (module.params['waitfor'] or list()):
             queue.add(Conditional(entry))
-    except AttributeError, exc:
+    except AttributeError as exc:
         module.fail_json(msg=exc.message)
 
     result = dict(changed=False)

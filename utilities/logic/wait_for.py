@@ -435,7 +435,7 @@ def main():
             if path:
                 try:
                     os.stat(path)
-                except OSError, e:
+                except OSError as e:
                     # If anything except file not present, throw an error
                     if e.errno != 2:
                         elapsed = datetime.datetime.now() - start

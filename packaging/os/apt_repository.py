@@ -273,7 +273,7 @@ class SourcesList(object):
 
                     try:
                         f.write(line)
-                    except IOError, err:
+                    except IOError as err:
                         self.module.fail_json(msg="Failed to write to file %s: %s" % (tmp_path, unicode(err)))
                 self.module.atomic_move(tmp_path, filename)
 
@@ -488,7 +488,7 @@ def main():
             sourceslist.add_source(repo)
         elif state == 'absent':
             sourceslist.remove_source(repo)
-    except InvalidSource, err:
+    except InvalidSource as err:
         module.fail_json(msg='Invalid repository string: %s' % unicode(err))
 
     sources_after = sourceslist.dump()
@@ -510,7 +510,7 @@ def main():
             if update_cache:
                 cache = apt.Cache()
                 cache.update()
-        except OSError, err:
+        except OSError as err:
             module.fail_json(msg=unicode(err))
 
     module.exit_json(changed=changed, repo=repo, state=state, diff=diff)

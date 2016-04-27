@@ -251,7 +251,7 @@ def main():
 
         check_file_attrs(module, changed, msg)
         module.exit_json(msg=msg, changed=changed)
-    except Exception, e:
+    except Exception as e:
         module.fail_json(msg=str(e))
 
 

@@ -534,7 +534,7 @@ def main():
         if not cursor:
             cursor = mysql_connect(module, login_user, login_password, config_file, ssl_cert, ssl_key, ssl_ca, db,
                                    connect_timeout=connect_timeout)
-    except Exception, e:
+    except Exception as e:
         module.fail_json(msg="unable to connect to database, check login_user and login_password are correct or %s has the credentials. Exception message: %s" % (config_file, e))
 
     if not sql_log_bin:
@@ -543,11 +543,11 @@ def main():
     if priv is not None:
         try:
             mode = get_mode(cursor)
-        except Exception, e:
+        except Exception as e:
             module.fail_json(msg=str(e))
         try:
             priv = privileges_unpack(priv, mode)
-        except Exception, e:
+        except Exception as e:
             module.fail_json(msg="invalid privileges string: %s" % str(e))
 
     if state == "present":

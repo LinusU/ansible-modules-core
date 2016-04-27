@@ -147,7 +147,7 @@ def main():
         queue = set()
         for entry in (module.params['waitfor'] or list()):
             queue.add(Conditional(entry))
-    except AttributeError, exc:
+    except AttributeError as exc:
         module.fail_json(msg=exc.message)
 
     result = dict(changed=False, result=list())
@@ -164,7 +164,7 @@ def main():
             if cmd.endswith('json'):
                 try:
                     response[index] = module.from_json(response[index])
-                except ValueError, exc:
+                except ValueError as exc:
                     module.fail_json(msg='failed to parse json response',
                             exc_message=str(exc), response=response[index],
                             cmd=cmd, response_dict=response)

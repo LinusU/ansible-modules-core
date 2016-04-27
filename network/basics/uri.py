@@ -221,7 +221,7 @@ def write_file(module, url, dest, content):
     f = open(tmpsrc, 'wb')
     try:
         f.write(content)
-    except Exception, err:
+    except Exception as err:
         os.remove(tmpsrc)
         module.fail_json(msg="failed to create temporary content file: %s" % str(err))
     f.close()
@@ -256,7 +256,7 @@ def write_file(module, url, dest, content):
     if checksum_src != checksum_dest:
         try:
             shutil.copyfile(tmpsrc, dest)
-        except Exception, err:
+        except Exception as err:
             os.remove(tmpsrc)
             module.fail_json(msg="failed to copy %s to %s: %s" % (tmpsrc, dest, str(err)))
 

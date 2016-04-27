@@ -408,7 +408,7 @@ def _throttleable_operation(max_retries):
             while True:
                 try:
                     return op(*args, **kwargs)
-                except boto.exception.BotoServerError, e:
+                except boto.exception.BotoServerError as e:
                     if retry < max_retries and e.code in \
                             ("Throttling", "RequestLimitExceeded"):
                         retry = retry + 1
@@ -817,7 +817,7 @@ class ElbManager(object):
     def _enable_zones(self, zones):
         try:
             self.elb.enable_zones(zones)
-        except boto.exception.BotoServerError, e:
+        except boto.exception.BotoServerError as e:
             if "Invalid Availability Zone" in e.error_message:
                 self.module.fail_json(msg=e.error_message)
             else:
@@ -827,7 +827,7 @@ class ElbManager(object):
     def _disable_zones(self, zones):
         try:
             self.elb.disable_zones(zones)
-        except boto.exception.BotoServerError, e:
+        except boto.exception.BotoServerError as e:
             if "Invalid Availability Zone" in e.error_message:
                 self.module.fail_json(msg=e.error_message)
             else:
@@ -1284,7 +1284,7 @@ def main():
 
                 group_id = [ str(grp.id) for grp in grp_details if str(grp.name) in group_name ]
                 security_group_ids.extend(group_id)
-        except boto.exception.NoAuthHandlerFound, e:
+        except boto.exception.NoAuthHandlerFound as e:
             module.fail_json(msg = str(e))
 
 

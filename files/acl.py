@@ -206,7 +206,7 @@ def run_acl(module, cmd, check_rc=True):
 
     try:
         (rc, out, err) = module.run_command(' '.join(cmd), check_rc=check_rc)
-    except Exception, e:
+    except Exception as e:
         module.fail_json(msg=e.strerror)
 
     lines = out.splitlines()

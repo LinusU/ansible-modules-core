@@ -150,7 +150,7 @@ def execute_show(cmds, module, command_type=None):
             response = module.execute(cmds, command_type=command_type)
         else:
             response = module.execute(cmds)
-    except ShellError, clie:
+    except ShellError as clie:
         module.fail_json(msg='Error sending {0}'.format(cmds),
                          error=str(clie))
     return response

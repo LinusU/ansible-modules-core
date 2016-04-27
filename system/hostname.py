@@ -161,7 +161,7 @@ class DebianStrategy(GenericStrategy):
         if not os.path.isfile(self.HOSTNAME_FILE):
             try:
                 open(self.HOSTNAME_FILE, "a").write("")
-            except IOError, err:
+            except IOError as err:
                 self.module.fail_json(msg="failed to write file: %s" %
                     str(err))
         try:
@@ -170,7 +170,7 @@ class DebianStrategy(GenericStrategy):
                 return f.read().strip()
             finally:
                 f.close()
-        except Exception, err:
+        except Exception as err:
             self.module.fail_json(msg="failed to read hostname: %s" %
                 str(err))
 
@@ -181,7 +181,7 @@ class DebianStrategy(GenericStrategy):
                 f.write("%s\n" % name)
             finally:
                 f.close()
-        except Exception, err:
+        except Exception as err:
             self.module.fail_json(msg="failed to update hostname: %s" %
                 str(err))
 
@@ -198,7 +198,7 @@ class SLESStrategy(GenericStrategy):
         if not os.path.isfile(self.HOSTNAME_FILE):
             try:
                 open(self.HOSTNAME_FILE, "a").write("")
-            except IOError, err:
+            except IOError as err:
                 self.module.fail_json(msg="failed to write file: %s" %
                     str(err))
         try:
@@ -207,7 +207,7 @@ class SLESStrategy(GenericStrategy):
                 return f.read().strip()
             finally:
                 f.close()
-        except Exception, err:
+        except Exception as err:
             self.module.fail_json(msg="failed to read hostname: %s" %
                 str(err))
 
@@ -218,7 +218,7 @@ class SLESStrategy(GenericStrategy):
                 f.write("%s\n" % name)
             finally:
                 f.close()
-        except Exception, err:
+        except Exception as err:
             self.module.fail_json(msg="failed to update hostname: %s" %
                 str(err))
 
@@ -241,7 +241,7 @@ class RedHatStrategy(GenericStrategy):
                         return v.strip()
             finally:
                 f.close()
-        except Exception, err:
+        except Exception as err:
             self.module.fail_json(msg="failed to read hostname: %s" %
                 str(err))
 
@@ -266,7 +266,7 @@ class RedHatStrategy(GenericStrategy):
                 f.writelines(lines)
             finally:
                 f.close()
-        except Exception, err:
+        except Exception as err:
             self.module.fail_json(msg="failed to update hostname: %s" %
                 str(err))
 
@@ -337,7 +337,7 @@ class OpenRCStrategy(GenericStrategy):
                     line = line.strip()
                     if line.startswith('hostname='):
                         return line[10:].strip('"')
-            except Exception, err:
+            except Exception as err:
                 self.module.fail_json(msg="failed to read hostname: %s" % str(err))
         finally:
             f.close()
@@ -358,7 +358,7 @@ class OpenRCStrategy(GenericStrategy):
 
                 f = open(self.HOSTNAME_FILE, 'w')
                 f.write('\n'.join(lines) + '\n')
-            except Exception, err:
+            except Exception as err:
                 self.module.fail_json(msg="failed to update hostname: %s" % str(err))
         finally:
             f.close()
@@ -377,7 +377,7 @@ class OpenBSDStrategy(GenericStrategy):
         if not os.path.isfile(self.HOSTNAME_FILE):
             try:
                 open(self.HOSTNAME_FILE, "a").write("")
-            except IOError, err:
+            except IOError as err:
                 self.module.fail_json(msg="failed to write file: %s" %
                     str(err))
         try:
@@ -386,7 +386,7 @@ class OpenBSDStrategy(GenericStrategy):
                 return f.read().strip()
             finally:
                 f.close()
-        except Exception, err:
+        except Exception as err:
             self.module.fail_json(msg="failed to read hostname: %s" %
                 str(err))
 
@@ -397,7 +397,7 @@ class OpenBSDStrategy(GenericStrategy):
                 f.write("%s\n" % name)
             finally:
                 f.close()
-        except Exception, err:
+        except Exception as err:
             self.module.fail_json(msg="failed to update hostname: %s" %
                 str(err))
 
@@ -449,7 +449,7 @@ class FreeBSDStrategy(GenericStrategy):
         if not os.path.isfile(self.HOSTNAME_FILE):
             try:
                 open(self.HOSTNAME_FILE, "a").write("hostname=temporarystub\n")
-            except IOError, err:
+            except IOError as err:
                 self.module.fail_json(msg="failed to write file: %s" %
                     str(err))
         try:
@@ -459,7 +459,7 @@ class FreeBSDStrategy(GenericStrategy):
                     line = line.strip()
                     if line.startswith('hostname='):
                         return line[10:].strip('"')
-            except Exception, err:
+            except Exception as err:
                 self.module.fail_json(msg="failed to read hostname: %s" % str(err))
         finally:
             f.close()
@@ -480,7 +480,7 @@ class FreeBSDStrategy(GenericStrategy):
 
                 f = open(self.HOSTNAME_FILE, 'w')
                 f.write('\n'.join(lines) + '\n')
-            except Exception, err:
+            except Exception as err:
                 self.module.fail_json(msg="failed to update hostname: %s" % str(err))
         finally:
             f.close()

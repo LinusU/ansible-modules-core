@@ -119,7 +119,7 @@ sys.path.insert(0, '/usr/share/rhn')
 try:
     import up2date_client
     import up2date_client.config
-except ImportError, e:
+except ImportError as e:
     module.fail_json(msg="Unable to import up2date_client.  Is 'rhn-client-tools' installed?\n%s" % e)
 
 # INSERT REDHAT SNIPPETS
@@ -377,7 +377,7 @@ def main():
                 rhn.enable()
                 rhn.register(module.params['enable_eus'] == True, activationkey, profilename, sslcacert, systemorgid)
                 rhn.subscribe(channels)
-            except Exception, e:
+            except Exception as e:
                 module.fail_json(msg="Failed to register with '%s': %s" % (rhn.hostname, e))
 
             module.exit_json(changed=True, msg="System successfully registered to '%s'." % rhn.hostname)
@@ -389,7 +389,7 @@ def main():
         else:
             try:
                 rhn.unregister()
-            except Exception, e:
+            except Exception as e:
                 module.fail_json(msg="Failed to unregister: %s" % e)
 
             module.exit_json(changed=True, msg="System successfully unregistered from %s." % rhn.hostname)

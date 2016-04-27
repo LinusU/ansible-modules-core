@@ -241,7 +241,7 @@ class CronTab(object):
                 f = open(self.cron_file, 'r')
                 self.lines = f.read().splitlines()
                 f.close()
-            except IOError, e:
+            except IOError as e:
                 # cron file does not exist
                 return
             except:
@@ -354,7 +354,7 @@ class CronTab(object):
         try:
             os.unlink(self.cron_file)
             return True
-        except OSError, e:
+        except OSError as e:
             # cron file does not exist
             return False
         except:

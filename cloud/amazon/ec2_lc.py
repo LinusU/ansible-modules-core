@@ -219,7 +219,7 @@ def create_launch_config(connection, module):
             connection.create_launch_configuration(lc)
             launch_configs = connection.get_all_launch_configurations(names=[name])
             changed = True
-        except BotoServerError, e:
+        except BotoServerError as e:
             module.fail_json(msg=str(e))
 
     result = dict(

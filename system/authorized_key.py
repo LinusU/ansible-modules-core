@@ -185,7 +185,7 @@ def keyfile(module, user, write=False, path=None, manage_dir=True):
 
     try:
         user_entry = pwd.getpwnam(user)
-    except KeyError, e:
+    except KeyError as e:
         if module.check_mode and path is None:
             module.fail_json(msg="Either user must exist or you must provide full path to key file in check mode")
         module.fail_json(msg="Failed to lookup user %s: %s" % (user, str(e)))
@@ -349,7 +349,7 @@ def writekeys(module, filename, keys):
             except:
                 key_line = key
             f.writelines(key_line)
-    except IOError, e:
+    except IOError as e:
         module.fail_json(msg="Failed to write to file %s: %s" % (tmp_path, str(e)))
     f.close()
     module.atomic_move(tmp_path, filename)

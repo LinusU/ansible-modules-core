@@ -46,7 +46,7 @@ def daemonize_self():
         if pid > 0:
             # exit first parent
             sys.exit(0)
-    except OSError, e:
+    except OSError as e:
         print >>sys.stderr, "fork #1 failed: %d (%s)" % (e.errno, e.strerror)
         sys.exit(1)
 
@@ -61,7 +61,7 @@ def daemonize_self():
         if pid > 0:
             # print "Daemon PID %d" % pid
             sys.exit(0)
-    except OSError, e:
+    except OSError as e:
         print >>sys.stderr, "fork #2 failed: %d (%s)" % (e.errno, e.strerror)
         sys.exit(1)
 
@@ -196,7 +196,7 @@ if __name__ == '__main__':
                 notice("Module complete (%s)"%os.getpid())
                 sys.exit(0)
 
-    except Exception, err:
+    except Exception as err:
         notice("error: %s"%(err))
         print json.dumps({
             "failed" : True,

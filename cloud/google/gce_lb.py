@@ -221,7 +221,7 @@ def main():
         gcelb = get_driver_lb(Provider_lb.GCE)(gce_driver=gce)
         gcelb.connection.user_agent_append("%s/%s" % (
                 USER_AGENT_PRODUCT, USER_AGENT_VERSION))
-    except Exception, e:
+    except Exception as e:
         module.fail_json(msg=unexpected_error_msg(e), changed=False)
 
     changed = False
@@ -247,7 +247,7 @@ def main():
                 changed = True
             except ResourceExistsError:
                 hc = gce.ex_get_healthcheck(httphealthcheck_name)
-            except Exception, e:
+            except Exception as e:
                 module.fail_json(msg=unexpected_error_msg(e), changed=False)
 
             if hc is not None:
@@ -291,7 +291,7 @@ def main():
                 changed = True
             except ResourceExistsError:
                 lb = gcelb.get_balancer(name)
-            except Exception, e:
+            except Exception as e:
                 module.fail_json(msg=unexpected_error_msg(e), changed=False)
 
             if lb is not None:
@@ -317,7 +317,7 @@ def main():
                 changed = True
             except ResourceNotFoundError:
                 pass
-            except Exception, e:
+            except Exception as e:
                 module.fail_json(msg=unexpected_error_msg(e), changed=False)
 
         # destroy the health check if specified
@@ -329,7 +329,7 @@ def main():
                 changed = True
             except ResourceNotFoundError:
                 pass
-            except Exception, e:
+            except Exception as e:
                 module.fail_json(msg=unexpected_error_msg(e), changed=False)
 
 

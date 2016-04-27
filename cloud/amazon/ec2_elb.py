@@ -239,7 +239,7 @@ class ElbManager:
         """
         try:
             status = lb.get_instance_health([self.instance_id])[0]
-        except boto.exception.BotoServerError, e:
+        except boto.exception.BotoServerError as e:
             if e.error_code == 'InvalidInstance':
                 return None
             else:

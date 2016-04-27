@@ -245,7 +245,7 @@ def is_installed(module, repoq, pkgspec, conf_file, qf=def_qf, en_repos=None, di
             pkgs = e + m
             if not pkgs and not is_pkg:
                 pkgs.extend(my.returnInstalledPackagesByDep(pkgspec))
-        except Exception, e:
+        except Exception as e:
             module.fail_json(msg="Failure talking to yum: %s" % e)
 
         return [ po_to_nevra(p) for p in pkgs ]
@@ -301,7 +301,7 @@ def is_available(module, repoq, pkgspec, conf_file, qf=def_qf, en_repos=None, di
             pkgs = e + m
             if not pkgs:
                 pkgs.extend(my.returnPackagesByDep(pkgspec))
-        except Exception, e:
+        except Exception as e:
             module.fail_json(msg="Failure talking to yum: %s" % e)
             
         return [ po_to_nevra(p) for p in pkgs ]
@@ -348,7 +348,7 @@ def is_update(module, repoq, pkgspec, conf_file, qf=def_qf, en_repos=None, dis_r
                 e,m,u = my.pkgSack.matchPackageNames([pkgspec])
                 pkgs = e + m
             updates = my.doPackageLists(pkgnarrow='updates').updates 
-        except Exception, e:
+        except Exception as e:
             module.fail_json(msg="Failure talking to yum: %s" % e)
 
         for pkg in pkgs:
@@ -399,7 +399,7 @@ def what_provides(module, repoq, req_spec, conf_file,  qf=def_qf, en_repos=None,
                 e,m,u = my.rpmdb.matchPackageNames([req_spec])
                 pkgs.extend(e)
                 pkgs.extend(m)
-        except Exception, e:
+        except Exception as e:
             module.fail_json(msg="Failure talking to yum: %s" % e)
 
         return set([ po_to_nevra(p) for p in pkgs ])
@@ -588,7 +588,7 @@ def install(module, items, repoq, yum_basecmd, conf_file, en_repos, dis_repos):
                     f.write(data)
                     data = rsp.read(BUFSIZE)
                 f.close()
-            except Exception, e:
+            except Exception as e:
                 shutil.rmtree(tempdir)
                 module.fail_json(msg="Failure downloading %s, %s" % (spec, e))
 
@@ -664,7 +664,7 @@ def install(module, items, repoq, yum_basecmd, conf_file, en_repos, dis_repos):
             # Remove rpms downloaded for EL5 via url
             try:
                 shutil.rmtree(tempdir)
-            except Exception, e:
+            except Exception as e:
                 module.fail_json(msg="Failure deleting temp directory %s, %s" % (tempdir, e))
 
             module.exit_json(changed=True, results=res['results'], changes=dict(installed=pkgs))
@@ -704,7 +704,7 @@ def install(module, items, repoq, yum_basecmd, conf_file, en_repos, dis_repos):
     # Remove rpms downloaded for EL5 via url
     try:
         shutil.rmtree(tempdir)
-    except Exception, e:
+    except Exception as e:
         module.fail_json(msg="Failure deleting temp directory %s, %s" % (tempdir, e))
 
     return res
@@ -959,9 +959,9 @@ def ensure(module, state, pkgs, conf_file, enablerepo, disablerepo,
                             rid = my.repos.getRepo(i)
                             a = rid.repoXML.repoid
                     current_repos = new_repos
-                except yum.Errors.YumBaseError, e:
+                except yum.Errors.YumBaseError as e:
                     module.fail_json(msg="Error setting/accessing repos: %s" % (e))
-        except yum.Errors.YumBaseError, e:
+        except yum.Errors.YumBaseError as e:
             module.fail_json(msg="Error accessing repos: %s" % e)
     if state in ['installed', 'present']:
         if disable_gpg_check:

@@ -203,7 +203,7 @@ def main():
     if regexp != None:
         try:
             compiled_regexp = re.compile(regexp)
-        except re.error, e:
+        except re.error as e:
             module.fail_json(msg="Invalid Regexp (%s) in \"%s\"" % (e, regexp))
 
     if validate and "%s" not in validate:

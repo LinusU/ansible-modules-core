@@ -573,7 +573,7 @@ def main():
         module.fail_json(msg='Python module "psycopg2" must be installed.')
     try:
         conn = Connection(p)
-    except psycopg2.Error, e:
+    except psycopg2.Error as e:
         module.fail_json(msg='Could not connect to database: %s' % e)
 
     try:
@@ -613,11 +613,11 @@ def main():
             schema_qualifier=p.schema
         )
 
-    except Error, e:
+    except Error as e:
         conn.rollback()
         module.fail_json(msg=e.message)
 
-    except psycopg2.Error, e:
+    except psycopg2.Error as e:
         conn.rollback()
         # psycopg2 errors come in connection encoding, reencode
         msg = e.message.decode(conn.encoding).encode(sys.getdefaultencoding(),

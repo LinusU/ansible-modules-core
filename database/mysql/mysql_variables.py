@@ -110,7 +110,7 @@ def setvariable(cursor, mysqlvar, value):
         cursor.execute(query + "%s", (value,))
         cursor.fetchall()
         result = True
-    except Exception, e:
+    except Exception as e:
         result = str(e)
     return result
 
@@ -157,7 +157,7 @@ def main():
     try:
         cursor = mysql_connect(module, user, password, config_file, ssl_cert, ssl_key, ssl_ca, db,
                                connect_timeout=connect_timeout)
-    except Exception, e:
+    except Exception as e:
         if os.path.exists(config_file):
             module.fail_json(msg="unable to connect to database, check login_user and login_password are correct or %s has the credentials. Exception message: %s" % (config_file, e))
         else:
@@ -176,7 +176,7 @@ def main():
             module.exit_json(msg="Variable already set to requested value", changed=False)
         try:
             result = setvariable(cursor, mysqlvar, value_wanted)
-        except SQLParseError, e:
+        except SQLParseError as e:
             result = str(e)
         if result is True:
             module.exit_json(msg="Variable change succeeded prev_value=%s" % value_actual, changed=True)
